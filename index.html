@@ -1,105 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Personal Budget</title>
-    <link rel="stylesheet" href="/reset.css">
-    <link rel="stylesheet" href="/main.css">
-</head>
-<body>
-
-    <div class="menu">
+    <!-- This is an SEO Change--Using Meta Tags-->
+    <meta
+      name="description"
+      content="Accelerate your personal growth with our
+    management app"
+    />
+    <meta http-equiv="refresh" content="60" />
+    <link rel="stylesheet" href="/reset.css" />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <!-- This is a Semantic HTML Change -->
+    <header class="head">
+      <div class="menu">
         <ul>
-            <li><a href="/">Homepage</a></li>
-            <li><a href="/about.html">About</a></li>
-            <li><a href="/login.html">Login</a></li>
-            <li><a href="https://google.com">Google</a></li>
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/login.html">Login</a></li>
+          <li><a href="https://google.com">Google</a></li>
+          <!-- This is an A11y Change--Added contact info menu On clicking it'll take you the contact info link in the footer-->
+          <li><a href="#contact-me">Contact Info</a></li>
+          <!-- This is an A11y Change--Added the aria-label -->
+          <input type="text" class="search-input" aria-label="Search" />
         </ul>
-    </div>
+      </div>
+    </header>
 
     <div class="hero">
-        <h1>Personal Budget</h1>
-        <h2>A personal-budget management app</h2>
+      <h1>Personal Budget</h1>
+      <h2>A personal-budget management app</h2>
+      <!-- This is an A11y Change--Added the lang tag for language accessibility-->
+      <h2><span lang="hi">यह</span> <span lang="en">Bulbul Roy<span> <span lang="hi">द्वारा किया गया है।</span></h2>
     </div>
 
-    <div class="container center">
+    <!-- This is a Semantic HTML Change--Used Main -->
+    <main class="mainpage">
+      <div class="container center">
+            <div class="page-area">
+                <div class="text-box">
+                    <h1>Stay on track</h1>
+                    <p>
+                    Do you know where you are spending your money? If you really stop
+                    to track it down, you would get surprised! Proper budget
+                    management depends on real data... and this app will help you with
+                    that!
+                    </p>
+                </div>
 
-        <div class="page-area">
+                <div class="text-box">
+                    <h1>Alerts</h1>
+                    <p>
+                    What if your clothing budget ended? You will get an alert. The
+                    goal is to never go over the budget.
+                    </p>
+                </div>
 
-            <div class="text-box">
-                <h1>Stay on track</h1>
-                <p>
-                    Do you know where you are spending your money? If you really stop to track it down,
-                    you would get surprised! Proper budget management depends on real data... and this
-                    app will help you with that!
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Alerts</h1>
-                <p>
-                    What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Results</h1>
-                <p>
-                    People who stick to a financial plan, budgeting every expense, get out of debt faster!
-                    Also, they to live happier lives... since they expend without guilt or fear... 
-                    because they know it is all good and accounted for.
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Free</h1>
-                <p>
+                <div class="text-box">
+                    <h1>Results</h1>
+                    <p>
+                    People who stick to a financial plan, budgeting every expense, get
+                    out of debt faster! Also, they to live happier lives... since they
+                    expend without guilt or fear... because they know it is all good
+                    and accounted for.
+                    </p>
+                </div>
+
+                <div class="text-box">
+                    <h1>Free</h1>
+                    <p>
                     This app is free!!! And you are the only one holding your data!
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Stay on track</h1>
-                <p>
-                    Do you know where you are spending your money? If you really stop to track it down,
-                    you would get surprised! Proper budget management depends on real data... and this
-                    app will help you with that!
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Alerts</h1>
-                <p>
-                    What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Results</h1>
-                <p>
-                    People who stick to a financial plan, budgeting every expense, get out of debt faster!
-                    Also, they to live happier lives... since they expend without guilt or fear... 
-                    because they know it is all good and accounted for.
-                </p>
-            </div>
-    
-            <div class="text-box">
-                <h1>Free</h1>
-                <p>
+                    </p>
+                </div>
+
+                <div class="text-box">
+                    <h1>Stay on track</h1>
+                    <p>
+                    Do you know where you are spending your money? If you really stop
+                    to track it down, you would get surprised! Proper budget
+                    management depends on real data... and this app will help you with
+                    that!
+                    </p>
+                </div>
+
+                <div class="text-box">
+                    <h1>Alerts</h1>
+                    <p>
+                    What if your clothing budget ended? You will get an alert. The
+                    goal is to never go over the budget.
+                    </p>
+                </div>
+
+                <div class="text-box">
+                    <h1>Results</h1>
+                    <p>
+                    People who stick to a financial plan, budgeting every expense, get
+                    out of debt faster! Also, they to live happier lives... since they
+                    expend without guilt or fear... because they know it is all good
+                    and accounted for.
+                    </p>
+                </div>
+
+                <div class="text-box">
+                    <h1>Free</h1>
+                    <p>
                     This app is free!!! And you are the only one holding your data!
-                </p>
+                    </p>
+                </div>
             </div>
-
         </div>
+    </main>
 
-    </div>
-
-    <div class="bottom">
-        <div class="center">
-            All rights reserved &copy; Fabio Nolasco
-        </div>
-    </div>
-
-</body>
+    <!-- This is a Semantic HTML Change--Used footer-->
+    <footer>
+      <div class="bottom">
+        <!-- This is an SEO Change--Added alt to img tag to show the information of what the icon is about-->
+        <img class="bottom-icon" src="github.png" alt="Github Profile" />
+        <img class="bottom-icon" src="insta.png" alt="Instagram Profile" />
+        <img class="bottom-icon" src="linkedin.png" alt="LinkedIn Profile" />
+        <div class="center">All rights reserved &copy; Fabio Nolasco</div>
+        <!-- This is an SEO Change--Used anchor tag-->
+        <a id="contact-me" class="contact" href="/contact.html">Contact Info</a>
+      </div>
+    </footer>
+  </body>
 </html>
