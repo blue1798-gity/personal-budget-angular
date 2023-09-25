@@ -1,58 +1,150 @@
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Component, AfterViewInit } from '@angular/core';
+import { Chart } from 'chart.js/auto';
+import * as d3 from 'd3';
+import { DataService } from '../data.service';
 
-import Chart from 'chart.js/auto';
-
+//@Component decorator to define the component
 @Component({
   selector: 'pb-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements AfterViewInit {
-  public dataSource: any = {
-    datasets: [
-      {
-        data: [],
-        backgroundColor: [
-          '#ffcd56',
-          '#ff6384',
-          '#36a2eb',
-          '#fd6b19',
-          '#83FF33',
-          '#F633FF',
-          '#FF3333',
-        ],
-      },
-    ],
-    labels: [],
-  };
+  width = 600;
+  height = 300;
+  radius = Math.min(this.width, this.height) / 2;
+  svg: any;
+  color: any;
+  key: any;
+  arc: any;
+  pie: any;
+  outerArc: any;
+  dataReady: any;
+  dataSource: any;
 
-  public newDataSource: any = [];
-
-  constructor(private http: HttpClient) {}
+  //Using constructor to inject HttpClient and DataService
+  constructor(private http: HttpClient, private dataService: DataService) {}
 
   ngAfterViewInit(): void {
-    this.http.get('http://localhost:3000/budget').subscribe((res: any) => {
-      for (var i = 0; i < res.myBudget.length; i++) {
-        this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
-        this.dataSource.labels[i] = res.myBudget[i].title;
-
-        this.newDataSource.push({
-          title: res.myBudget[i].title,
-          budget: res.myBudget[i].budget,
-        });
-      }
-      console.log(this.newDataSource);
+    setTimeout(() => {
+      this.dataSource = this.dataService.dataSource;
       this.createChart();
-      // change(this.newDataSource);
-    });
+      this.draw();
+    }, 1000);
   }
 
-  createChart() {
-    const ctx = <HTMLCanvasElement>document.getElementById('myChart');
-    var myPieChart = new Chart(ctx, {
+  //Method to create chart
+  private createChart(): void {
+    const ctx: any = document.getElementById('myChart');
+    const myPieChart = new Chart(ctx, {
       type: 'pie',
       data: this.dataSource,
     });
+  }
+
+  private getData() {
+    const arr = [];
+    const labels = this.dataSource.labels;
+    for (let i = 0; i < this.dataSource.datasets[0].data.length; i++) {
+      arr.push({
+        label: labels[i],
+        value: this.dataSource.datasets[0].data[i],
+      });
+    }
+    return arr;
+  }
+
+  private midAngle(d: { startAngle: number; endAngle: number }) {
+    return d.startAngle + (d.endAngle - d.startAngle) / 2;
+  }
+
+  //Method used to draw chart
+  private draw(): void {
+    this.svg = d3
+      .select('svg')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .append('g')
+      .attr(
+        'transform',
+        'translate(' + this.width / 2 + ',' + this.height / 2 + ')'
+      );
+    this.radius = Math.min(this.width, this.height) / 2;
+
+    this.color = d3
+      .scaleOrdinal()
+      .domain(this.dataSource.labels)
+      .range([
+        '#ffcd56',
+        '#ff6384',
+        '#36a2eb',
+        '#fd6b19',
+        '#83FF33',
+        '#F633FF',
+        '#FF3333',
+      ]);
+
+    this.pie = d3
+      .pie()
+      .sort(null)
+      .value((d: any) => d.value);
+
+    this.dataReady = this.pie(this.getData());
+
+    this.arc = d3
+      .arc()
+      .innerRadius(this.radius * 0.5)
+      .outerRadius(this.radius * 0.8);
+
+    this.outerArc = d3
+      .arc()
+      .innerRadius(this.radius * 0.9)
+      .outerRadius(this.radius * 0.9);
+
+    this.svg
+      .selectAll('allSlices')
+      .data(this.dataReady)
+      .enter()
+      .append('path')
+      .attr('d', this.arc)
+      .attr('fill', (d: any) => this.color(d.data.label))
+      .attr('stroke', 'white')
+      .style('stroke-width', '2px')
+      .style('opacity', 0.7);
+
+    this.svg
+      .selectAll('allPolylines')
+      .data(this.dataReady)
+      .enter()
+      .append('polyline')
+      .attr('stroke', 'black')
+      .style('fill', 'none')
+      .attr('stroke-width', 1)
+      .attr('points', (d: any) => {
+        const poA = this.arc.centroid(d);
+        const poB = this.outerArc.centroid(d);
+        const poC = this.outerArc.centroid(d);
+        poC[0] = this.radius * 0.95 * (this.midAngle(d) < Math.PI ? 1 : -1);
+        return [poA, poB, poC];
+      });
+
+    this.svg
+      .selectAll('allLabels')
+      .data(this.dataReady)
+      .enter()
+      .append('text')
+      .text((d: any) => {
+        console.log(d.data.label);
+        return d.data.label;
+      })
+      .attr('transform', (d: any) => {
+        const pos = this.outerArc.centroid(d);
+        pos[0] = this.radius * 0.99 * (this.midAngle(d) < Math.PI ? 1 : -1);
+        return 'translate(' + pos + ')';
+      })
+      .style('text-anchor', (d: any) => {
+        return this.midAngle(d) < Math.PI ? 'start' : 'end';
+      });
   }
 }

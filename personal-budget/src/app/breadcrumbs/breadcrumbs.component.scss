@@ -1,0 +1,19 @@
+ul.myBreadcrumb {
+  padding: 15px 20px;
+  background-color: #eeeeee5a;
+  list-style: none;
+}
+ul.myBreadcrumb li {
+  font-size: 15px;
+  display: inline;
+}
+
+ul.myBreadcrumb li + li:before {
+  padding: 15px;
+  color: #666666;
+  content: "|\00a0";
+}
+
+ul.myBreadcrumb li a:hover {
+  color: #017c7e;
+}
